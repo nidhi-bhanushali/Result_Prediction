@@ -1,5 +1,6 @@
 from flask import Flask, request,jsonify,render_template
 import numpy as np
+import pickle
 
 
 app = Flask(__name__)
@@ -85,21 +86,38 @@ def predict():
     final_features.append(absences)
 
     g1 = request.form.get("g1")
-    final_features.append(g1)
+    if g1 != None:
+        print(g1)
+        final_features.append(g1)
 
     g2 = request.form.get("g2")
-    final_features.append(g2)
+    if g2 != None:
+        print(g2)
+        final_features.append(g2)
 
-    # final_features = np.array(final_features)
     int_features = [int(x) for x in final_features]
-    final_features = [np.array(int_features)]
+    final_features = np.array(int_features).reshape(1, -1)
     print(final_features)
 
+    if(g1 != None and g2 != None):
+        model = pickle.load(open('modelG1G2.pkl', 'rb'))
+        print(model)
+    elif(g2 == None):
+        model = pickle.load(open('modelG1.pkl', 'rb'))
+        print(model)
+        print('g1')
+    else:
+        model = pickle.load(open('modelN.pkl', 'rb'))
+        print(model)
+        print('none')
 
+    # final_features = final_features.reshape(-1 , 1)
+    prediction = model.predict(final_features)
+   
+    output = round(prediction[0], 2)
+    print(output)
 
-    
-    return render_template('index.html', prediction_text='Sales should be $ {}'.format(final_features))
-
+    return render_template('index.html', prediction_text='Sales should be $ {}'.format(output))
 
 if __name__ == '__main__':
     app.run()
