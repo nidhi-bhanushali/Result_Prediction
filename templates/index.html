@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href= "{{url_for('static',filename='css/main.css')}}">
+    <title>Result Prediction</title>
+
+    <style>
+        .main{
+            width: 1080px;
+        }
+
+        .btn{
+            width: 400px;
+            margin-top: 30px;
+        }
+
+    </style>
+</head>
+<body class="flex justify-center font-sans">
+    
+    <div class="text-indigo-500 bg-gray-100 rounded-xl shadow-md m-5 p-5 font-semibold flex justify-center main">
+    <div>
+        <h1 class="text-center text-4xl font-bold my-8">Personal Information</h1>
+        <form action="{{ url_for('predict')}}"method="post">
+        <div class="grid grid-cols-3 gap-5">
+        <div class="flex space-x-2"> 
+        <div>  
+            <p>Sex:</p>
+        </div>
+        <div>
+            <input type="radio" id="male" name="gender" value="1" required>
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="0">
+            <label for="female">Female</label>
+        </div>
+        </div>
+
+        <div class="flex space-x-2">
+            <div>
+                <p>Family Size:</p>
+            </div>
+            <div>
+                <input type="radio" name="famSize" value="1" required>
+                <label for="less than 3">Less than 3</label>
+                <input type="radio" name="famSize" value="0">
+                <label for="more than 3">More than 3</label>
+            </div>
+        </div>
+
+        <div class="flex space-x-2">
+            <div>
+                <p>Family support:</p>
+            </div>
+            <div>
+                <input type="radio" id="yes" name="famSup" value="1" required>
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="famSup" value="0">
+                <label for="no">No</label>
+            </div>
+        </div>
+
+        <div>
+            <label>Age:</label>
+            <input type="text"class="border border-gray-400 
+            rounded-lg shadow-sm
+            focus:outline-none focus:border-indigo-500 
+            focus:ring-1 focus:ring-indigo-500" name="age" required>
+        </div> 
+
+        <div>
+            <label>Absences</label>
+            <input type="text" class="border border-gray-400 rounded-lg shadow-sm
+            focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+            name="absences" required>
+        </div>
+
+        <div>
+            <label>Failures:</label>
+            <select class="border border-gray-400 
+            rounded-lg shadow-sm
+            focus:outline-none focus:border-indigo-500 
+            focus:ring-1 focus:ring-indigo-500" name="failures" required>
+                <option value="0">None</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+        
+        
+        </div>
+
+            <div>
+                <label>Mother's Education: </label>
+                <select class="border border-gray-400 
+                rounded-lg shadow-sm
+                focus:outline-none focus:border-indigo-500 
+                focus:ring-1 focus:ring-indigo-500" name="mEdu" required>
+                    <option value="0">None</option>
+                    <option value="1">Primary Education</option>
+                    <option value="2">5th to 9th grade</option>
+                    <option value="3">Secondary Education</option>
+                    <option value="4">Higher Eduation</option>
+                </select>
+                
+                
+            </div>
+    
+        <div>
+            <label>Father's Education:</label>
+            <select class="border border-gray-400 
+            rounded-lg shadow-sm
+            focus:outline-none focus:border-indigo-500 
+            focus:ring-1 focus:ring-indigo-500" name="fEdu" required>
+                <option value="0">None</option>
+                <option value="1">Primary Education</option>
+                <option value="2">5th to 9th grade</option>
+                <option value="3">Secondary Education</option>
+                <option value="4">Higher Eduation</option>
+            </select>
+        </div>
+            
+        <div>
+            <label>Mother's Job:</label>
+            <select class="border border-gray-400 
+            rounded-lg shadow-sm
+            focus:outline-none focus:border-indigo-500 
+            focus:ring-1 focus:ring-indigo-500" name="mJob" required>
+                <option value="0">Teacher</option>
+                <option value="1">Health care</option>
+                <option value="2">5th to 9th grade</option>
+                <option value="3">Civil services</option>
+                <option value="4">At home</option>
+                <option value="4">Other</option>
+            </select>
+            
+            
+
+        </div>
+    <div>
+        <label>Father's Job:</label>
+        <select class="border border-gray-400 
+        rounded-lg shadow-sm
+        focus:outline-none focus:border-indigo-500 
+        focus:ring-1 focus:ring-indigo-500" name="fJob" required>
+            <option value="0">Teacher</option>
+            <option value="1">Health care</option>
+            <option value="2">5th to 9th grade</option>
+            <option value="3">Civil services</option>
+            <option value="4">At home</option>
+            <option value="5">Other</option>
+        </select>
+    
+        
+    </div>
+    
+
+    <div class="flex space-x-2">
+        <div>
+            <p>Parent Cohabition:</p>
+        </div>
+        <div>
+            <input type="radio" id="yes" name="pcs" value="1" required>
+            <label for="yes">Together</label>
+            <input type="radio" id="no" name="pcs" value="0">
+            <label for="no">Apart</label>
+        </div>
+    </div>
+        
+        <div>
+        <label>Travel Time:</label>
+        <select class="border border-gray-400 
+        rounded-lg shadow-sm
+        focus:outline-none focus:border-indigo-500 
+        focus:ring-1 focus:ring-indigo-500" name="travelTime" required>
+            <option value="1">Less than 15 minutes</option>
+            <option value="2">15 to 30 minutes</option>
+            <option value="3">30 minutes to 1 hour</option>
+            <option value="4">More than an hour</option>
+        </select>
+        </div>
+
+            <div>
+                <label>Health: </label>
+                <select class="border border-gray-400 
+                rounded-lg shadow-sm
+                focus:outline-none focus:border-indigo-500 
+                focus:ring-1 focus:ring-indigo-500" name="health" required>
+                    <option value="1">Very Bad</option>
+                    <option value="2">Bad</option>
+                    <option value="3">Satisfactory</option>
+                    <option value="4">Good</option>
+                    <option value="5">Very Good</option>
+                </select>
+                    
+                </div>
+        
+
+            <div class="flex space-x-2">
+                <div>
+                <p>Extra Paid Classes:</p>
+                </div>
+                <div>
+                <input type="radio" id="yes" name="paid" value="1" required>
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="paid" value="0">
+                <label for="no">No</label>
+                
+                </div>
+            </div>
+        
+            <div class="flex space-x-2">
+            <div>
+                <p>Extra Curricular Activites:</p>
+            </div>
+            <div>
+                <input type="radio" id="yes" name="activites" value="1" required>
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="activites" value="0">
+                <label for="no">No</label>
+                
+            </div>
+        </div>
+
+        <div class="flex space-x-2">
+            <div>
+                <p>Higher Education:</p>
+            </div>
+            <div>
+                <input type="radio" id="yes" name="higherStudies" value="1" required>
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="higherStudies" value="0">
+                <label for="no">No</label>
+                
+            </div>
+        </div> 
+        
+        <div class="flex space-x-2">
+            <div>
+                <p>Internet Access:</p>
+            </div>
+            <div>
+                <input type="radio" id="yes" name="internet" value="1" required>
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="internet" value="0">
+                <label for="no">No</label>
+                
+            </div>
+        </div>
+        
+        <div class="flex space-x-2">
+            <div>
+                <p>Romantic Relationship:</p>
+            </div>
+            <div>
+                <input type="radio" id="yes" name="romantic" value="1" required>
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="romantic" value="0">
+                <label for="no">No</label>
+                
+            </div>
+        </div>
+        
+            <div>
+            <label>Family Relationship:</label>
+            <select class="border border-gray-400 
+            rounded-lg shadow-sm
+            focus:outline-none focus:border-indigo-500 
+            focus:ring-1 focus:ring-indigo-500" name="famRel" required>
+                <option value="1">Very Bad</option>
+                <option value="2">Bad</option>
+                <option value="3">Good</option>
+                <option value="4">Very Good</option>
+                <option value="5">Excellent</option>
+            </select>
+            
+            
+            </div>
+        
+            <div>
+            <label>Free Time:</label>
+            <select class="border border-gray-400 
+            rounded-lg shadow-sm
+            focus:outline-none focus:border-indigo-500 
+            focus:ring-1 focus:ring-indigo-500" name="freeTime" required>
+                <option value="1">Very Low</option>
+                <option value="2">Low</option>
+                <option value="3">Satisfactory</option>
+                <option value="4">High</option>
+                <option value="5">Very High</option>
+            </select>
+            
+            
+            </div>
+
+            <div>
+            <label>Going out with Friends:</label>
+            <select class="border border-gray-400 
+            rounded-lg shadow-sm
+            focus:outline-none focus:border-indigo-500 
+            focus:ring-1 focus:ring-indigo-500" name="goOut" required>
+                <option value="1">Very Low</option>
+                <option value="2">Low</option>
+                <option value="3">Satisfactory</option>
+                <option value="4">High</option>
+                <option value="5">Very High</option>
+            </select>
+        
+        
+            </div>
+        
+        
+            <div>
+            <label>Workday alcohol consumption:</label>
+            <select class="border border-gray-400 
+            rounded-lg shadow-sm
+            focus:outline-none focus:border-indigo-500 
+            focus:ring-1 focus:ring-indigo-500" name="dalc" required>
+                <option value="1">Very Low</option>
+                <option value="2">Low</option>
+                <option value="3">Satisfactory</option>
+                <option value="4">High</option>
+                <option value="5">Very High</option>
+            </select>
+            
+            
+            </div>
+
+            <div>
+            <label>Weekend alcohol consumption: </label>
+            <select class="border border-gray-400 
+            rounded-lg shadow-sm
+            focus:outline-none focus:border-indigo-500 
+            focus:ring-1 focus:ring-indigo-500" name="walc" required>
+                <option value="1">Very Low</option>
+                <option value="2">Low</option>
+                <option value="3">Satisfactory</option>
+                <option value="4">High</option>
+                <option value="5">Very High</option>
+            </select>
+            
+            
+            </div>
+
+            <div>
+                <label>Weekly Study Time:</label>
+                <select class="border border-gray-400 
+                rounded-lg shadow-sm
+                focus:outline-none focus:border-indigo-500 
+                focus:ring-1 focus:ring-indigo-500" name="studyTime" required>
+                    <option value="1">Less than 2 hours</option>
+                    <option value="2">2 - 5 hours</option>
+                    <option value="3">5 - 10 hours</option>
+                    <option value="4">More than 10 hours</option>
+                </select>
+            </div>
+
+            
+            <div class="flex space-x-2">
+                <div>
+                    <p>G1 Score:</p>
+                </div>
+                <div>
+                    <input type="radio" id="gt10" name="g1" value="1" required>
+                    <label for="gt10"> Greater than 10</label>
+                    <input type="radio" id="lt10" name="g1" value="0">
+                    <label for="lt10"> Less than 10</label>
+                </div>
+            </div>
+
+            <div class="flex space-x-2">
+                <div>
+                    <p>G2 Score:</p>
+                </div>
+                <div>
+                    <input type="radio" id="gt10" name="g2" value="1" required>
+                    <label for="gt10">Greater than 10</label>
+                    <input type="radio" id="lt10" name="g2" value="0">
+                    <label for="lt10">Less than 10</label>
+                </div>
+            </div>
+          
+            </div>
+           <div>
+               <button class="btn bg-indigo-500 text-gray-100 p-3 rounded-lg flex justify-center m-auto">Submit</button>
+           </div> 
+        </form>
+
+        <br>
+        <br>
+        {{ prediction_text }}
+    </div> 
+    </div>
+</body>
+</html>
