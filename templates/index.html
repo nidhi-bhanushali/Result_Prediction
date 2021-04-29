@@ -19,9 +19,10 @@
 
     </style>
 </head>
-<body class="flex justify-center font-sans">
+<body class="flex font-sans">
     
-    <div class="text-indigo-500 bg-gray-100 rounded-xl shadow-md m-5 p-5 font-semibold flex justify-center main">
+    <div class="text-indigo-500 bg-gray-100 rounded-xl 
+    shadow-md m-5 pl-5 font-semibold flex justify-center main">
     <div>
         <h1 class="text-center text-4xl font-bold my-8">Personal Information</h1>
         <form action="{{ url_for('predict')}}"method="post">
@@ -136,8 +137,6 @@
                 <option value="4">At home</option>
                 <option value="4">Other</option>
             </select>
-            
-            
 
         </div>
     <div>
@@ -391,8 +390,13 @@
 
         <br>
         <br>
-        {{ prediction_text }}
     </div> 
+    </div>
+
+    <div class="text-indigo-500 bg-gray-100 rounded-xl shadow-md 
+    m-5 p-5 font-semibold w-96 h-56">
+        <h2>{{ prediction_text }}</h2>
+        <h2>Hello World</h2>
     </div>
 </body>
 </html>
