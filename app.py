@@ -115,9 +115,13 @@ def predict():
     prediction = model.predict(final_features)
    
     output = round(prediction[0], 2)
+    if(output == 0):
+        prediction_text = 'The student needs assitance'
+    else:
+        prediction_text = 'The student is doing well'
     print(output)
 
-    return render_template('index.html', prediction_text='Sales should be $ {}'.format(output))
+    return render_template('index.html', prediction_text= prediction_text)
 
 if __name__ == '__main__':
     app.run()

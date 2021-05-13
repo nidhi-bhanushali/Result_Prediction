@@ -15,13 +15,26 @@
         .btn{
             width: 400px;
             margin-top: 30px;
+            background-color: #f14b45;
+        }
+
+        .img{
+            background-color: #0a0a0a;
+        }
+
+        .card{
+            background-color: white;
+        }
+
+        .result{
+            text-align: center;
         }
 
     </style>
 </head>
-<body class="flex font-sans">
+<body class="flex font-sans img" style="color: #E5625E;">
     
-    <div class="text-indigo-500 bg-gray-100 rounded-xl 
+    <div class=" card rounded-xl 
     shadow-md m-5 pl-5 font-semibold flex justify-center main">
     <div>
         <h1 class="text-center text-4xl font-bold my-8">Personal Information</h1>
@@ -384,7 +397,7 @@
           
             </div>
            <div>
-               <button class="btn bg-indigo-500 text-gray-100 p-3 rounded-lg flex justify-center m-auto">Submit</button>
+               <button class="btn text-gray-100 p-3 rounded-lg flex justify-center m-auto">Submit</button>
            </div> 
         </form>
 
@@ -393,10 +406,10 @@
     </div> 
     </div>
 
-    <div class="text-indigo-500 bg-gray-100 rounded-xl shadow-md 
-    m-5 p-5 font-semibold w-96 h-56">
-        <h2>{{ prediction_text }}</h2>
-        <h2>Hello World</h2>
+    <div class=" card rounded-xl shadow-md 
+    m-5 p-5 font-semibold w-96 h-40 text-4xl result pt-10">
+
+        <h1>Result: {{ prediction_text }}</h1>
     </div>
 </body>
 </html>
